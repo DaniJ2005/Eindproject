@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
+use App\Models\Product;
+use App\Models\Supplier;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +26,18 @@ Route::get('/', function () {
 
 
 Route::resource('customers', CustomerController::class);
+Route::resource('products', ProductController::class);
+Route::resource('suppliers', SupplierController::class);
+
+
+
+Route::get('/test', function(){
+
+  echo 'ja';
+
+  $aProds = Supplier::all();
+
+  var_dump($aProds);
+
+
+});
