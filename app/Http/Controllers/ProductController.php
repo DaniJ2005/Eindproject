@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
+        $products = Product::latest()->paginate(10);
         $suppliers = Supplier::all();
 
         return view('products.index', compact('products', 'suppliers'))->with(request()->input('page'));
@@ -27,7 +27,7 @@ class ProductController extends Controller
 
       $suppliers = Supplier::all();
 
-        return view('products.create', compact('suppliers'));
+      return view('products.create', compact('suppliers'));
     }
 
     /**
@@ -35,23 +35,37 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the input
-        $request->validate([
-          'name' => 'required',
-          'buy_price' => 'required',
-          'sell_price' => 'required',
-          'stock' => 'required',
-          'min_stock' => 'required|max:6',
-          'max_stock' => 'required',
-          'location' => 'required'
-        ]);
+    // Validate the input
+    $request->validate([
+        'name' => 'required',
+        'buy_price' => 'required',
+        'sell_price' => 'required',
+        'stock' => 'required',
+        'min_stock' => 'required|max:6',
+        'max_stock' => 'required',
+        'location' => 'required',
+        // 'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add image validation rules
+    ]);
 
-        // create a new product
-        Product::create($request->all());
+    $data = $request->except('image'); // Exclude the 'image' field from the data
 
-        // redirect with feedback message
-        return redirect()->route('products.index')->with('success','Product added successfully');
+    if ($request->hasFile('image')) {
+      $name = $request->file('image')->getClientOriginalName();
+      $request->file('image')->storeAs('public/images/', $name);
+      
+      // Add the image name to the request data
+      $data['image'] = $name;
+    } 
+    else {
+      return 'empty';
     }
+
+    // Create a new product
+    Product::create($data);
+
+    // Redirect with feedback message
+    return redirect()->route('products.index')->with('success', 'Product added successfully');
+}
 
     /**
      * Display the specified resource.
@@ -85,9 +99,22 @@ class ProductController extends Controller
         'location' => 'required'
       ]);
 
+      $data = $request->except('image'); // Exclude the 'image' field from the data
+
+      if ($request->hasFile('image')) {
+        $name = $request->file('image')->getClientOriginalName();
+        $request->file('image')->storeAs('public/images/', $name);
+        
+        // Add the image name to the request data
+        $data['image'] = $name;
+      } 
+      else {
+        return 'empty';
+      }
+
 
         // update Product
-        $product->update($request->all());
+        $product->update($data);
 
         //redirect and feedback message
         return redirect()->route('products.index')->with('success','Product updated successfully');

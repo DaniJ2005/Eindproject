@@ -17,8 +17,10 @@ class SellOrder extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function product()
+    public function sellProduct()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(SellProduct::class);
     }
+
+    
 }

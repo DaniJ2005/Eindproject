@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SellOrderController;
 use App\Models\Product;
 use App\Models\Supplier;
 
@@ -21,9 +22,15 @@ use App\Models\Supplier;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
+Route::resource('sellorders', SellOrderController::class);
+
+Route::get('sellorders/{sellOrderId}/products/create', [SellOrderController::class, 'createSellOrderProducts'])->name('sellorders.products.create');
+Route::put('sellorders/{sellOrderId}/products/edit', [SellOrderController::class, 'editSellOrderProducts'])->name('sellorders.products.edit');
+Route::post('sellorders/{sellorder}/products',[SellOrderController::class, 'storeSellOrderProducts'])->name('sellorders.products.store');
+Route::delete('sellorders/{sellOrderId}/products/{productId}', [SellOrderController::class, 'deleteSellOrderProducts'])->name('sellorders.products.delete');
 
 Route::resource('customers', CustomerController::class);
 Route::resource('products', ProductController::class);
@@ -32,12 +39,9 @@ Route::resource('suppliers', SupplierController::class);
 
 
 Route::get('/test', function(){
-
-  echo 'ja';
-
+ 
   $aProds = Supplier::all();
 
   var_dump($aProds);
-
 
 });

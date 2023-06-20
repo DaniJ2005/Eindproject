@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('layout')
 
 @section('content')
     <div class="row">
@@ -22,6 +22,7 @@
     <table class="table table-bordered">
         <tr>
             <th>ID</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Supplier</th>
             <th>Buy Price</th>
@@ -35,6 +36,7 @@
         @foreach ($products as $product)
         <tr>
             <td>{{ $product->id }}</td>
+            <td><img src="{{ asset('storage/images/' . $product->image) }}" style="max-height: 60px" ></td>
             <td>{{ $product->name }}</td>
             <td>{{ $product->supplier->name }}</td>
             <td>&euro;{{ $product->buy_price }}</td>

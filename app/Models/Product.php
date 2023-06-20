@@ -14,7 +14,8 @@ class Product extends Model
         'min_stock', 
         'max_stock', 
         'location', 
-        'supplier_id'
+        'supplier_id',
+        'image'
     ];
 
     public function supplier()

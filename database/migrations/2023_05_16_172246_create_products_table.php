@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('min_stock')->nullable(false);
             $table->integer('max_stock')->nullable(false);
             $table->integer('location');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('layout')
 
 @section('content')
 <div class="row">
@@ -23,7 +23,7 @@
     </div>
 @endif
 
-<form action="{{ route('products.store') }}" method="POST">
+<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
      <div class="row">
@@ -31,6 +31,9 @@
             <div class="form-group">
                 <strong>Name:</strong>
                 <input type="text" name="name" class="form-control" placeholder="Name">
+
+                <strong>Image:</strong>
+                <input type="file" name="image" class="form-control">
 
                 <strong>Supplier</strong>
                 <select name="supplier_id">
