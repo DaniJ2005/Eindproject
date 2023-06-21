@@ -36,7 +36,7 @@
               @if($sellorder->status == 1)
               <p>Sell order registered</p>
               @elseif($sellorder->status == 2)
-              <p>Sell order getting collected</p>
+              <p>Sell order being collected</p>
               @elseif($sellorder->status == 3)
               <p>Sell order is on its way</p>
               @elseif($sellorder->status == 4)

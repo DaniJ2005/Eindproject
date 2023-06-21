@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             
             $table->string('name', 12)->nullable(false);
-            $table->decimal('buy_price', 3, 2);
-            $table->decimal('sell_price', 3, 2);
+            $table->decimal('buy_price', 6, 2);
+            $table->decimal('sell_price', 6, 2);
             $table->integer('stock')->nullable(false);
             $table->integer('min_stock')->nullable(false);
             $table->integer('max_stock')->nullable(false);

@@ -23,8 +23,12 @@ class Product extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function sellOrders()
+    public function sellProduct()
     {
-        return $this->hasMany(SellOrder::class);
+        return $this->hasMany(SellProduct::class);
+    }
+    public function buyProduct()
+    {
+        return $this->hasMany(BuyProduct::class);
     }
 }

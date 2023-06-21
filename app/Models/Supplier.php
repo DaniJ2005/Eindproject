@@ -22,6 +22,11 @@ class Supplier extends Model
         ->withPivot('quantity')
         ->withTimestamps();
     }
+
+    public function buyOrders()
+    {
+        return $this->hasMany(BuyOrder::class);
+    }
     
     
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Customer;
 use App\Models\SellOrder;
 use App\Models\Product;
@@ -51,9 +52,15 @@ class SellOrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($sellOrderId)
     {
-        return view('sellorders.show', compact('sellorders'));
+        $customers = Customer::all();
+        $sellorder = SellOrder::findOrFail($sellOrderId);
+        $sellProducts = SellProduct::where('sell_order_id', $sellOrderId)->get();
+
+        //dd($sellProducts);
+    
+        return view('sellorders.show', compact('sellorder', 'customers', 'sellProducts'));
     }
 
     /**
@@ -101,10 +108,13 @@ class SellOrderController extends Controller
         // Retrieve the sell order using the ID
         $sellOrder = SellOrder::findOrFail($sellOrderId);
 
+        $sellProducts = SellProduct::where('sell_order_id', $sellOrderId)->get();
+
+
         // Retrieve the products available for selection
         $products = Product::latest()->paginate(16);
 
-        return view('sellorders.create_products', compact('sellOrder', 'products'));
+        return view('sellorders.create_products', compact('products', 'sellProducts'))->with('sellOrder', $sellOrder);
     }
 
     public function editSellOrderProducts($sellOrderId)
@@ -118,6 +128,10 @@ class SellOrderController extends Controller
     public function storeSellOrderProducts(Request $request, $sellOrderId)
     {
         $sellOrder = SellOrder::findOrFail($sellOrderId);
+        // $sellOrder = SellOrder::where(['sell_order_id' => $sellOrderId]);
+
+        
+
 
         $quantities = $request->input('quantities');
 
@@ -132,31 +146,14 @@ class SellOrderController extends Controller
         return redirect()->back()->with('success', 'Products added successfully');
     }
 
-    public function deleteSellOrderProducts(Request $request, $sellOrderId, $productId)
+
+
+    public function deleteSellOrderProducts(Request $request, $sellProductId)
     {
-        // Find the sell order by ID
-        $sellOrder = SellOrder::findOrFail($sellOrderId);
+        $sellProduct = SellProduct::findOrFail($sellProductId);
+        $sellProduct->delete();
 
-        // Find the sell product record by sell order ID and product ID
-        $sellProduct = SellProduct::where('sell_order_id', $sellOrderId)
-                                  ->where('product_id', $productId)
-                                  ->first();
-
-        if ($sellProduct) {
-            // Delete the sell product record
-            $sellProduct->delete();
-
-            // Provide a success message
-            return redirect()->back()->with('success', 'Products removed successfully');
-
-        } else {
-
-            // Provide an error message if the sell product record was not found
-            return redirect()->back()->with('error', 'Product not found');
-        }
-
-        // Redirect back to the sell order products page
-        
+        return redirect()->route('sellorders.products.create', ['sellOrderId' => $sellProduct->sell_order_id])->with('success', 'Sell product removed successfully.');
     }
 
     

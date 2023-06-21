@@ -12,14 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('buy_orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('supplier_id');
-            $table->unsignedBigInteger('product_id');
-            $table->integer('quantity');
+          $table->id();
+          $table->unsignedBigInteger('supplier_id');
 
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+          $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
 
-            $table->timestamps();
+          $table->timestamps();
         });
     }
 

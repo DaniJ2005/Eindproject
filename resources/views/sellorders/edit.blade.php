@@ -34,8 +34,18 @@
                   <select name="customer_id">
                     <option value="">Select a customer</option>
                     @foreach($customers as $customer)
-                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                      <option value="{{ $customer->id }}" {{ old('customer_id', $sellorder->customer_id) == $customer->id ? 'selected' : '' }}>
+                        {{ $customer->name }}
+                      </option>
                     @endforeach
+                  </select>
+
+                  <strong>Order status</strong>
+                  <select name="status">
+                    <option value="1" {{ $sellorder->status == 1 ? 'selected' : '' }}>Sell order registered</option>
+                    <option value="2" {{ $sellorder->status == 2 ? 'selected' : '' }}>Sell order being collected</option>
+                    <option value="3" {{ $sellorder->status == 3 ? 'selected' : '' }}>Sell order is on its way</option>
+                    <option value="4" {{ $sellorder->status == 4 ? 'selected' : '' }}>Sell order delivered!</option>
                   </select>
                   
             </div>

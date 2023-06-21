@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
-use App\Models\SellOrder;
+use App\Models\BuyOrder;
 
-class SellProduct extends Model
-{ 
-
+class BuyProduct extends Model
+{
     protected $fillable = [
-        'sell_order_id',
-        'product_id',
-        'quantity',
+      'buy_order_id',
+      'product_id',
+      'quantity',
     ];
 
 
@@ -22,8 +21,8 @@ class SellProduct extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function sellOrders()
+    public function buyOrders()
     {
-        return $this->belongsTo(SellOrder::class);
+        return $this->belongsTo(BuyOrder::class);
     }
 }
