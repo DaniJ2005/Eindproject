@@ -1,4 +1,6 @@
-@extends('customers.layout')
+@extends('layout')
+
+@include('navbar')
 
 @section('content')
     <div class="row">

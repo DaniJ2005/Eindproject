@@ -44,7 +44,7 @@ class ProductController extends Controller
         'min_stock' => 'required|max:6',
         'max_stock' => 'required',
         'location' => 'required',
-        // 'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add image validation rules
+        'image' => 'required',
     ]);
 
     $data = $request->except('image'); // Exclude the 'image' field from the data
@@ -56,10 +56,6 @@ class ProductController extends Controller
       // Add the image name to the request data
       $data['image'] = $name;
     } 
-    else {
-      return 'empty';
-    }
-
     // Create a new product
     Product::create($data);
 
@@ -96,7 +92,8 @@ class ProductController extends Controller
         'stock' => 'required',
         'min_stock' => 'required|max:6',
         'max_stock' => 'required',
-        'location' => 'required'
+        'location' => 'required',
+        'image' => 'required',
       ]);
 
       $data = $request->except('image'); // Exclude the 'image' field from the data
@@ -108,9 +105,6 @@ class ProductController extends Controller
         // Add the image name to the request data
         $data['image'] = $name;
       } 
-      else {
-        return 'empty';
-      }
 
 
         // update Product

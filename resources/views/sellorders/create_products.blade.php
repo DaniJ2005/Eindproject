@@ -51,7 +51,11 @@
               @endfor
             </select>
             
+            @if ($product->stock <= 0)
+            <button class="btn btn-secondary" disabled>Add</button>
+            @else
             <button class="btn btn-success" type="submit">Add</button>
+            @endif
 
             
 

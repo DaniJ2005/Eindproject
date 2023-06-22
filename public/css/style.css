@@ -1,21 +1,9 @@
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 body {
   background-color: #F6F8FC;
-}
-
-.navbar{
-  display: flex;
-  width: 100%;
-  background-color: #FFF;
-  height: 60px;
-  align-items: center;
-  border-radius: 10px;
-}
-
-.navitems{
-  margin: 0 8px;
-}
-.navitems a {
-  margin: 0 8px;
 }
 
 .sellorder-create-container {
@@ -30,7 +18,7 @@ body {
   gap: 24px 12px;
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   flex-wrap: wrap;
   background-color: #fff;
   padding: 24px;
@@ -39,12 +27,12 @@ body {
 
 
 .product-item{
-  padding: 12px;
+  padding: 8px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   height: 280px;
-  width: 220px;
+  width: 235px;
   box-shadow: 4px 4px 27px 0px rgba(0,0,0,0.01);
   border-radius: 10px;
   justify-content: space-between;
@@ -85,7 +73,7 @@ body {
 
 .added-items {
     margin: 48px 0px;
-    width: 480px;
+    width: 440px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -137,4 +125,70 @@ body {
 
 .icon {
   transform: translateY(1.8px);
+}
+
+.footer-container {
+  background-color: #221e1f;
+  width: 100%;
+  min-height: 260px;
+  margin-top: 168px;
+  display: flex;
+  justify-content: space-between;
+  padding: 35px 128px;
+  box-shadow: 0px -4px 24px -5px rgba(0,0,0,0.2);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.footer-text-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-heading {
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: bold;
+  margin: 16px 0;
+}
+
+.footer-text {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 4px 0;
+}
+
+.socials-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.check {
+  font-size: 24px;
+}
+
+.social-icon {
+  color: #fff;
+  font-size: 32px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.social-icon:hover {
+  color: #c6c2c2;
+  cursor: pointer;
+}
+
+
+.index-container {
+  display: flex;
+  width: 100%;
+  height: 256px;
 }

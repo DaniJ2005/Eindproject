@@ -32,6 +32,9 @@
 
 
       @foreach ($products as $product)
+      @if ($product->supplier->name == $buyOrder->supplier->name)
+        
+      
       <form action="{{ route('buyorders.products.store', $buyOrder->id) }}" method="POST">
       @csrf
 
@@ -46,18 +49,20 @@
             </div>
             
             <select name="quantities[{{ $product->id }}]" id="quantity_{{ $product->id }}">
-              @for ($i = 1; $i <= 999; $i++)
+              @for ($i = $product->min_stock - $product->stock; $i <= $product->max_stock - $product->stock; $i++)
               <option value="{{ $i }}">{{ $i }}</option>
               @endfor
             </select>
             
+            @if ($product->stock >= $product->max_stock)
+            <button class="btn btn-secondary" disabled>Add</button>
+            @else
             <button class="btn btn-success" type="submit">Add</button>
-
-            
-
+            @endif
           </div>
         </div>
       </form>
+      @endif
       @endforeach
 
 
